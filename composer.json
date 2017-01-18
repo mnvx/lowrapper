@@ -1,0 +1,21 @@
+{
+  "name": "mnvx/lowrapper",
+  "license": "MIT",
+  "type": "library",
+  "description": "PHP wrapper over LibreOffice converter",
+  "keywords": ["libreoffice", "converter", "word", "pdf", "excel", "docx", "xls", "xlsx"],
+  "homepage": "https://github.com/mnvx/lowrapper",
+  "autoload": {
+    "psr-4": {
+      "Mnvx\\Lowrapper\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=7.0.0",
+    "symfony/process": "^3.1",
+    "psr/log": "^1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.7"
+  }
+}
