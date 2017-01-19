@@ -15,12 +15,14 @@ $converter = new Converter();
 
 // Describe parameters for converter
 $parameters = (new LowrapperParameters())
-    // HTML document as string on input
-    ->setInputStream('<!DOCTYPE html><html>Example of HTML document</html>')
-    // Result file name
-    ->setOutputFile('path-to-result-docx.docx')
+    // Document type: writer, calc, web etc.
+    ->setDocumentType(DocumentType::WEB)
+    // HTML document
+    ->setInputFile('test.html')
     // Format of result document is docx
-    ->setOutputFormat(Format::FORMAT_TEXT_DOCX);
+    ->setOutputFormat(Format::TEXT_DOCX)
+    // Result file name
+    ->setOutputFile('path-to-result-docx.docx');
 
 // Run converter
 $converter->convert($parameters);

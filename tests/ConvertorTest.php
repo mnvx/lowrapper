@@ -22,12 +22,20 @@ class ConvertorTest extends \PHPUnit_Framework_TestCase
         if ($binary) {
             $mockBuilder->setConstructorArgs([$binary]);
         }
-        $converterStub = $mockBuilder->setMethods(['createProcess'])
+        $converterStub = $mockBuilder->setMethods(['createProcess', 'createTemporaryFile', 'createOutputFile'])
             ->getMock();
 
         $converterStub->expects($this->once())
             ->method('createProcess')
             ->with($this->equalTo($command));
+
+        $converterStub->expects($this->once())
+            ->method('createTemporaryFile')
+            ->willReturn('some_temp_file');
+
+        $converterStub->expects($this->once())
+            ->method('createOutputFile')
+            ->with($this->equalTo('some_temp_file'));
 
         $converterStub->convert($parameters);
     }
@@ -39,8 +47,9 @@ class ConvertorTest extends \PHPUnit_Framework_TestCase
                 (new LowrapperParameters())
                     ->setDocumentType(DocumentType::WEB)
                     ->setOutputFormat(Format::WEB_HTML)
-                    ->setInputFile('test.html'),
-                'libreoffice --headless --web --convert-to html "test.html"',
+                    ->setInputFile('test.html')
+                    ->setOutputFile('test.docx'),
+                'libreoffice --headless --web --convert-to html "some_temp_file"',
                 null,
             ],
             'From HTML file to docx file' => [
@@ -49,7 +58,7 @@ class ConvertorTest extends \PHPUnit_Framework_TestCase
                     ->setDocumentType(DocumentType::WRITER)
                     ->setOutputFormat(Format::TEXT_DOCX)
                     ->setOutputFile('test.docx'),
-                'libreoffice --headless --writer --convert-to docx "test.html"',
+                'libreoffice --headless --writer --convert-to docx "some_temp_file"',
                 null,
             ],
             'Binary' => [
@@ -58,7 +67,7 @@ class ConvertorTest extends \PHPUnit_Framework_TestCase
                     ->setDocumentType(DocumentType::WRITER)
                     ->setOutputFormat(Format::TEXT_DOCX)
                     ->setOutputFile('test.docx'),
-                '/test/path --headless --writer --convert-to docx "test.html"',
+                '/test/path --headless --writer --convert-to docx "some_temp_file"',
                 '/test/path',
             ],
         ];

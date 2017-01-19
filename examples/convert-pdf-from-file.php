@@ -12,16 +12,20 @@ require __DIR__ . '/Logger.php';
 // Example start
 
 use Mnvx\Lowrapper\Converter;
+use Mnvx\Lowrapper\DocumentType;
 use Mnvx\Lowrapper\LowrapperParameters;
 use Mnvx\Lowrapper\Format;
+
+$outputFile = __DIR__ . '/output/pdf-to-png.png';
 
 $converter = new Converter();
 $converter->setLogger(new Logger());
 
 $parameters = (new LowrapperParameters())
+    ->setDocumentType(DocumentType::DRAW)
     ->setInputFile(__DIR__ . '/data/pdf.pdf')
-    ->setOutputFile(__DIR__ . '/output/pdf-to-png.png')
-    ->setOutputFormat(Format::GRAPHICS_PNG);
+    ->setOutputFormat(Format::GRAPHICS_PNG)
+    ->setOutputFile($outputFile);
 
 $converter->convert($parameters);
 

@@ -12,18 +12,24 @@ error_reporting(E_ALL);
 // Example start
 
 use Mnvx\Lowrapper\Converter;
+use Mnvx\Lowrapper\DocumentType;
 use Mnvx\Lowrapper\LowrapperParameters;
 use Mnvx\Lowrapper\Format;
 
+$outputFile = __DIR__ . '/output/html-to-text.text';
+
 $converter = new Converter();
 $parameters = (new LowrapperParameters())
+    ->setDocumentType(DocumentType::WRITER)
     ->setInputFile(__DIR__ . '/data/html.html')
-    ->setOutputFormat(Format::TEXT_TEXT);
+    // @todo: filters
+    ->setOutputFormat(Format::TEXT_TEXT)
+    ->setOutputFile($outputFile);
 
-$result = $converter->convert($parameters);
+$converter->convert($parameters);
 
 // Example finish
 
 
-$html = '<pre>' . $result . '</pre>';
-include __DIR__ . '/layout/layout.html';
+include $outputFile;
+unlink($outputFile);
