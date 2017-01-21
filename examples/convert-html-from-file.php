@@ -12,7 +12,7 @@ error_reporting(E_ALL);
 // Example start
 
 use Mnvx\Lowrapper\Converter;
-use Mnvx\Lowrapper\DocumentType;
+//use Mnvx\Lowrapper\DocumentType;
 use Mnvx\Lowrapper\LowrapperParameters;
 use Mnvx\Lowrapper\Format;
 
@@ -20,7 +20,7 @@ $outputFile = __DIR__ . '/output/html-to-text.text';
 
 $converter = new Converter();
 $parameters = (new LowrapperParameters())
-    ->setDocumentType(DocumentType::WRITER)
+//    ->setDocumentType(DocumentType::WRITER)
     ->setInputFile(__DIR__ . '/data/html.html')
 //    ->addOutputFilter('Text (encoded)')
 //    ->addOutputFilter('UTF8')

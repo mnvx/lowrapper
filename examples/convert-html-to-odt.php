@@ -12,7 +12,6 @@ require __DIR__ . '/Logger.php';
 // Example start
 
 use Mnvx\Lowrapper\Converter;
-use Mnvx\Lowrapper\DocumentType;
 use Mnvx\Lowrapper\LowrapperParameters;
 use Mnvx\Lowrapper\Format;
 
@@ -22,7 +21,6 @@ $converter = new Converter();
 $converter->setLogger(new Logger());
 
 $parameters = (new LowrapperParameters())
-    ->setDocumentType(DocumentType::WRITER)
     ->setInputData($source)
     ->setOutputFile(__DIR__ . '/output/html-to-odt.odt')
     ->setOutputFormat(Format::TEXT_ODT);

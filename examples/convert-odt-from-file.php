@@ -12,7 +12,6 @@ error_reporting(E_ALL);
 // Example start
 
 use Mnvx\Lowrapper\Converter;
-use Mnvx\Lowrapper\DocumentType;
 use Mnvx\Lowrapper\LowrapperParameters;
 use Mnvx\Lowrapper\Format;
 
@@ -20,7 +19,6 @@ $outputFile = __DIR__ . '/output/odt-to-html.html';
 
 $converter = new Converter();
 $parameters = (new LowrapperParameters())
-    ->setDocumentType(DocumentType::WEB)
     ->setInputFile(__DIR__ . '/data/odt.odt')
     ->setOutputFormat(Format::WEB_HTML);
 

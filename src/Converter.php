@@ -86,9 +86,11 @@ class Converter implements ConverterInterface
      */
     public function convert(LowrapperParameters $parameters)
     {
+        $documentType = $parameters->getDocumentType();
         if ($parameters->getDocumentType() && !in_array($parameters->getDocumentType(), DocumentType::getAvailableValues(), true)) {
             throw new LowrapperException(sprintf('Unknown document type: ', $parameters->getDocumentType()));
         }
+        $documentType = $documentType ?: DocumentType::getDefault($parameters->getOutputFormat());
 
         if ($parameters->getOutputFormat() && !in_array($parameters->getOutputFormat(), Format::getAvailableValues(), true)) {
             throw new LowrapperException(sprintf('Unknown output format: ', $parameters->getOutputFormat()));
@@ -100,13 +102,12 @@ class Converter implements ConverterInterface
         }, $this->getOutputFilters($parameters)));
 
         $options = array_merge($this->defaultOptions, [
-            $parameters->getDocumentType() ? '--' . $parameters->getDocumentType() : '',
+            $documentType ? '--' . $documentType : '',
             '--convert-to "' . $parameters->getOutputFormat() . $outputFilters . '"',
             '"' . $inputFile . '"',
         ]);
         $command = $this->binaryPath . ' ' . implode(' ', $options);
 
-        echo $command;
         $process = $this->createProcess($command);
 
         if ($this->timeout) {
