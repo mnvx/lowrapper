@@ -22,7 +22,8 @@ $converter = new Converter();
 $parameters = (new LowrapperParameters())
     ->setDocumentType(DocumentType::WRITER)
     ->setInputFile(__DIR__ . '/data/html.html')
-    // @todo: filters
+//    ->addOutputFilter('Text (encoded)')
+//    ->addOutputFilter('UTF8')
     ->setOutputFormat(Format::TEXT_TEXT)
     ->setOutputFile($outputFile);
 
@@ -31,5 +32,7 @@ $converter->convert($parameters);
 // Example finish
 
 
-include $outputFile;
+$result = file_get_contents($outputFile);
 unlink($outputFile);
+$html = '<pre>' . $result . '</pre>';
+include __DIR__ . '/layout/layout.html';

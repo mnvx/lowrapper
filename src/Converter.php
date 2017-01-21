@@ -38,6 +38,20 @@ class Converter implements ConverterInterface
     protected $tempPrefix;
 
     /**
+     * Defailt options for libreoffice
+     * @var array
+     */
+    protected $defaultOptions = [
+        '--headless',
+        '--invisible',
+        '--nocrashreport',
+        '--nodefault',
+        '--nofirststartwizard',
+        '--nologo',
+        '--norestore',
+    ];
+
+    /**
      * Converter constructor.
      * @param string $binaryPath
      * @param string $tempDir
@@ -72,13 +86,6 @@ class Converter implements ConverterInterface
      */
     public function convert(LowrapperParameters $parameters)
     {
-        if (!$parameters->getInputFile()) {
-            throw new LowrapperException('Input file must be specified');
-        }
-        if (!$parameters->getOutputFile()) {
-            throw new LowrapperException('Output file must be specified');
-        }
-
         if ($parameters->getDocumentType() && !in_array($parameters->getDocumentType(), DocumentType::getAvailableValues(), true)) {
             throw new LowrapperException(sprintf('Unknown document type: ', $parameters->getDocumentType()));
         }
@@ -87,11 +94,17 @@ class Converter implements ConverterInterface
             throw new LowrapperException(sprintf('Unknown output format: ', $parameters->getOutputFormat()));
         }
 
-        $inputFile = $this->createTemporaryFile($parameters->getInputFile());
+        $inputFile = $this->getInputFile($parameters);
+        $outputFilters = implode('', array_map(function ($item) {
+            return ':' . $item;
+        }, $this->getOutputFilters($parameters)));
 
-        $documentType = $parameters->getDocumentType() ? '--' . $parameters->getDocumentType() : '';
-        $outputFormat = $parameters->getOutputFormat();
-        $command = $this->binaryPath . sprintf(' --headless %s --convert-to %s "%s"', $documentType, $outputFormat, $inputFile);
+        $options = array_merge($this->defaultOptions, [
+            $parameters->getDocumentType() ? '--' . $parameters->getDocumentType() : '',
+            '--convert-to "' . $parameters->getOutputFormat() . $outputFilters . '"',
+            '"' . $inputFile . '"',
+        ]);
+        $command = $this->binaryPath . ' ' . implode(' ', $options);
 
         echo $command;
         $process = $this->createProcess($command);
@@ -100,26 +113,21 @@ class Converter implements ConverterInterface
             $process->setTimeout($this->timeout);
         }
 
-        // Convert from stdin
-        if (!$parameters->getInputFile()) {
-            $process->setInput($parameters->getInputStream());
-        }
-
         $this->logger->info(sprintf('Start: %s', $command));
 
-        $result = null;
         $errors = null;
         $self = $this;
-        $resultCode = $process->run(function ($type, $buffer) use (&$result, &$errors, $self) {
+        $resultCode = $process->run(function ($type, $buffer) use (&$errors, $self) {
             if (Process::ERR === $type) {
                 $self->logger->warning($buffer);
             }
             else {
-                $result .= $buffer;
+                $self->logger->info($buffer);
             }
         });
 
-        $this->createOutputFile($inputFile . '.' . $parameters->getOutputFormat(), $parameters->getOutputFile());
+        $result = $this->createOutput($inputFile . '.' . $parameters->getOutputFormat(), $parameters->getOutputFile());
+        $this->deleteInput($parameters, $inputFile);
 
         if ($resultCode != 0) {
             $this->logger->error(sprintf('Failed with result code %d: %s', $resultCode, $command));
@@ -147,19 +155,79 @@ class Converter implements ConverterInterface
      */
     protected function createTemporaryFile(string $inputFile): string
     {
-        $temporaryFile = $this->tempDir . '/' . uniqid($this->tempPrefix);
+        $temporaryFile = $this->genTemporaryFileName();
         copy($inputFile, $temporaryFile);
         return $temporaryFile;
     }
 
     /**
+     * Generate unique name for temporary file
+     * @return string
+     */
+    protected function genTemporaryFileName()
+    {
+        return $this->tempDir . '/' . uniqid($this->tempPrefix);
+    }
+
+    /**
      * @param string $inputFile
      * @param string $outputFile
-     * @return bool
+     * @return string|null
      */
-    protected function createOutputFile(string $inputFile, string $outputFile): bool
+    protected function createOutput(string $inputFile, string $outputFile = null)
     {
-        return rename($inputFile, $outputFile);
+        if ($outputFile) {
+            if (file_exists($outputFile)) {
+                unlink($outputFile);
+            }
+            rename($inputFile, $outputFile);
+            return null;
+        }
+
+        $result = file_get_contents($inputFile);
+        unlink($inputFile);
+        return $result;
+    }
+
+    /**
+     * Get output filters
+     * @param LowrapperParameters $parameters
+     * @return string[]
+     */
+    protected function getOutputFilters(LowrapperParameters $parameters)
+    {
+        if (empty($parameters->getOutputFilters())) {
+            return OutputFilters::getDefault($parameters->getOutputFormat());
+        }
+        return $parameters->getOutputFilters();
+    }
+
+    /**
+     * Get input file - return existed or create from input data
+     * @param LowrapperParameters $parameters
+     * @return string
+     */
+    protected function getInputFile(LowrapperParameters $parameters)
+    {
+        if ($parameters->getInputFile()) {
+            return $this->createTemporaryFile($parameters->getInputFile());
+        }
+
+        $temporaryFile = $this->genTemporaryFileName();
+        file_put_contents($temporaryFile, $parameters->getInputData());
+        return $temporaryFile;
+    }
+
+    /**
+     * Delete input file if it was created in process of conversion
+     * @param LowrapperParameters $parameters
+     * @param string $inputFile
+     */
+    protected function deleteInput(LowrapperParameters $parameters, string $inputFile)
+    {
+        if (!$parameters->getInputFile()) {
+            unlink($inputFile);
+        }
     }
 
 }

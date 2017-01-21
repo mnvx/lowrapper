@@ -12,14 +12,18 @@ require __DIR__ . '/Logger.php';
 // Example start
 
 use Mnvx\Lowrapper\Converter;
+use Mnvx\Lowrapper\DocumentType;
 use Mnvx\Lowrapper\LowrapperParameters;
 use Mnvx\Lowrapper\Format;
+
+$source = file_get_contents(__DIR__ . '/data/html.html');
 
 $converter = new Converter();
 $converter->setLogger(new Logger());
 
 $parameters = (new LowrapperParameters())
-    ->setInputFile(__DIR__ . '/data/table.html')
+    ->setDocumentType(DocumentType::CALC)
+    ->setInputData($source)
     ->setOutputFile(__DIR__ . '/output/html-to-xlsx.xlsx')
     ->setOutputFormat(Format::SPREADSHEET_XLSX);
 

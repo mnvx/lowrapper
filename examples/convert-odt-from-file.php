@@ -22,13 +22,11 @@ $converter = new Converter();
 $parameters = (new LowrapperParameters())
     ->setDocumentType(DocumentType::WEB)
     ->setInputFile(__DIR__ . '/data/odt.odt')
-    ->setOutputFormat(Format::WEB_HTML)
-    ->setOutputFile($outputFile);
+    ->setOutputFormat(Format::WEB_HTML);
 
 $result = $converter->convert($parameters);
 
 // Example finish
 
 
-include $outputFile;
-unlink($outputFile);
+echo $result;

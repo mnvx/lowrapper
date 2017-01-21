@@ -42,23 +42,29 @@ class LowrapperParameters
     protected $inputFile = null;
 
     /**
-     * Sttin data
+     * Input data, eg. HTML as string
      * @var mixed
      */
-    protected $inputStream = null;
+    protected $inputData = null;
+
+    /**
+     * Output filters, eg.
+     * - Text (encoded)
+     * - UTF8
+     * @var string[]
+     */
+    protected $outputFilters = [];
 
     public function __construct(
         string $outputFile = null,
         string $outputFormat = null,
         string $documentType = null,
-        string $inputFile = null,
-        string $inputStream = null
+        string $inputFile = null
     ) {
         $this->setOutputFile($outputFile);
         $this->setOutputFormat($outputFormat);
         $this->setDocumentType($documentType);
         $this->setInputFile($inputFile);
-        $this->setInputStream($inputStream);
     }
 
     /**
@@ -120,24 +126,6 @@ class LowrapperParameters
     }
 
     /**
-     * @return mixed
-     */
-    public function getInputStream()
-    {
-        return $this->inputStream;
-    }
-
-    /**
-     * @param mixed $inputStream
-     * @return LowrapperParameters
-     */
-    public function setInputStream($inputStream)
-    {
-        $this->inputStream = $inputStream;
-        return $this;
-    }
-
-    /**
      * @return null
      */
     public function getDocumentType()
@@ -158,5 +146,43 @@ class LowrapperParameters
         $this->documentType = $documentType;
         return $this;
     }
+
+    /**
+     * @param string $outputFilter
+     * @return LowrapperParameters
+     */
+    public function addOutputFilter(string $outputFilter)
+    {
+        $this->outputFilters[] = $outputFilter;
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getOutputFilters(): array
+    {
+        return $this->outputFilters;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInputData()
+    {
+        return $this->inputData;
+    }
+
+    /**
+     * @param mixed $inputData
+     * @return LowrapperParameters
+     */
+    public function setInputData($inputData)
+    {
+        $this->inputData = $inputData;
+        return $this;
+    }
+
+
 
 }
