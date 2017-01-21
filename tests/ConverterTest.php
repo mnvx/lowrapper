@@ -6,7 +6,7 @@ use Mnvx\Lowrapper\Format;
 use Mnvx\Lowrapper\LowrapperParameters;
 use Symfony\Component\Process\Process;
 
-class ConvertorTest extends \PHPUnit_Framework_TestCase
+class ConverterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider converterProvider
