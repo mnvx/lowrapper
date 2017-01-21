@@ -87,13 +87,13 @@ class Converter implements ConverterInterface
     public function convert(LowrapperParameters $parameters)
     {
         $documentType = $parameters->getDocumentType();
-        if ($parameters->getDocumentType() && !in_array($parameters->getDocumentType(), DocumentType::getAvailableValues(), true)) {
-            throw new LowrapperException(sprintf('Unknown document type: ', $parameters->getDocumentType()));
+        if ($documentType && !in_array($documentType, DocumentType::getAvailableValues(), true)) {
+            throw new LowrapperException('Unknown document type: ' . $documentType);
         }
         $documentType = $documentType ?: DocumentType::getDefault($parameters->getOutputFormat());
 
         if ($parameters->getOutputFormat() && !in_array($parameters->getOutputFormat(), Format::getAvailableValues(), true)) {
-            throw new LowrapperException(sprintf('Unknown output format: ', $parameters->getOutputFormat()));
+            throw new LowrapperException('Unknown output format: ' . $parameters->getOutputFormat());
         }
 
         $inputFile = $this->getInputFile($parameters);
