@@ -3,6 +3,8 @@ Simple way for documents conversion into various formats.
 
 For example: html -> docx, html -> pdf, docx -> html and many more.
 
+![Formats](examples/formats.jpg "Formats")
+
 ## Usage
 
 ```
@@ -15,8 +17,6 @@ $converter = new Converter();
 
 // Describe parameters for converter
 $parameters = (new LowrapperParameters())
-    // Document type: writer, calc, web etc.
-    ->setDocumentType(DocumentType::WEB)
     // HTML document
     ->setInputFile('test.html')
     // Format of result document is docx
@@ -28,10 +28,12 @@ $parameters = (new LowrapperParameters())
 $converter->convert($parameters);
 ```
 
+More [examples](/examples)
+
 ## Install
 
 ```
-sudo apt-get install libreoffice
+sudo apt-get install libreoffice-core --no-install-recommends
 composer require mnvx/lowrapper
 ```
 
