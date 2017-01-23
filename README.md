@@ -1,3 +1,5 @@
+Master Status: [![Build Status](https://travis-ci.org/mnvx/lowrapper.png?branch=master)](https://travis-ci.org/mnvx/lowrapper) 
+
 # PHP wrapper over LibreOffice converter
 Simple way for documents conversion into various formats.
 
