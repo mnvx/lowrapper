@@ -56,14 +56,12 @@ class LowrapperParameters
     protected $outputFilters = [];
 
     public function __construct(
-        string $outputFile = null,
         string $outputFormat = null,
-        string $documentType = null,
+        string $outputFile = null,
         string $inputFile = null
     ) {
-        $this->setOutputFile($outputFile);
         $this->setOutputFormat($outputFormat);
-        $this->setDocumentType($documentType);
+        $this->setOutputFile($outputFile);
         $this->setInputFile($inputFile);
     }
 
