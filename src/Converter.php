@@ -223,7 +223,7 @@ class Converter implements ConverterInterface
      * @param LowrapperParameters $parameters
      * @param string $inputFile
      */
-    protected function deleteInput(LowrapperParameters $parameters, string $inputFile)
+    protected function deleteInput(LowrapperParameters $parameters, /*string*/ $inputFile)
     {
         if (!$parameters->getInputFile()) {
             unlink($inputFile);
