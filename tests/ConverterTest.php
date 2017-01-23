@@ -11,7 +11,7 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider converterProvider
      */
-    public function testConvert(LowrapperParameters $parameters, string $command, string $binary = null)
+    public function testConvert(LowrapperParameters $parameters, /*string*/ $command, /*string*/ $binary = null)
     {
         $processStub = $this->getMockBuilder(Process::class)
             ->disableOriginalConstructor()
@@ -34,7 +34,8 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
 
         $converterStub->expects($this->once())
             ->method('createProcess')
-            ->with($this->equalTo($command));
+            ->with($this->equalTo($command))
+            ->willReturn($processStub);
 
         $converterStub
             ->method('createTemporaryFile')

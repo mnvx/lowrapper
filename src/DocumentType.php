@@ -17,7 +17,7 @@ class DocumentType
     const IMPRESS = 'impress';
     const BASE = 'base';
     const MATH = 'math';
-    const GLOBAL = 'global';
+    const GLOB = 'global';
     const WEB = 'web';
 
     /**
@@ -31,7 +31,7 @@ class DocumentType
         self::IMPRESS,
         self::BASE,
         self::MATH,
-        self::GLOBAL,
+        self::GLOB,
         self::WEB,
     ];
 
@@ -205,9 +205,9 @@ class DocumentType
      * @param string $outputFormat
      * @return null|string
      */
-    public static function getDefault(string $outputFormat)
+    public static function getDefault(/*string*/ $outputFormat)
     {
-        return static::$defaults[$outputFormat] ?? null;
+        return isset(static::$defaults[$outputFormat]) ? static::$defaults[$outputFormat] : null;
     }
 
 }

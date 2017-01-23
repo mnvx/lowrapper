@@ -30,7 +30,12 @@ $converter->convert($parameters);
 
 More [examples](/examples)
 
-## Install
+## Requirements
+
+- PHP 5.5+
+- libreoffice-core
+
+## Installation
 
 ```
 sudo apt-get install libreoffice-core --no-install-recommends

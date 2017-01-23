@@ -60,11 +60,11 @@ class Converter implements ConverterInterface
      * @param string $tempPrefix
      */
     public function __construct(
-        string $binaryPath = self::BINARY_DEFAULT,
-        string $tempDir = null,
-        int $timeout = null,
+        /*string*/ $binaryPath = self::BINARY_DEFAULT,
+        /*string*/ $tempDir = null,
+        /*int*/ $timeout = null,
         LoggerInterface $logger = null,
-        string $tempPrefix = 'lowrapper_'
+        /*string*/ $tempPrefix = 'lowrapper_'
     ) {
         if (!$logger) {
             $logger = new NullLogger();
@@ -116,9 +116,8 @@ class Converter implements ConverterInterface
 
         $this->logger->info(sprintf('Start: %s', $command));
 
-        $errors = null;
         $self = $this;
-        $resultCode = $process->run(function ($type, $buffer) use (&$errors, $self) {
+        $resultCode = $process->run(function ($type, $buffer) use ($self) {
             if (Process::ERR === $type) {
                 $self->logger->warning($buffer);
             }
@@ -145,7 +144,7 @@ class Converter implements ConverterInterface
      * @param $command
      * @return Process
      */
-    protected function createProcess(string $command): Process
+    protected function createProcess(/*string*/ $command)//: Process
     {
         return new Process($command, $this->tempDir);
     }
@@ -154,7 +153,7 @@ class Converter implements ConverterInterface
      * @param string $inputFile
      * @return string
      */
-    protected function createTemporaryFile(string $inputFile): string
+    protected function createTemporaryFile(/*string*/ $inputFile)//: string
     {
         $temporaryFile = $this->genTemporaryFileName();
         copy($inputFile, $temporaryFile);
@@ -175,7 +174,7 @@ class Converter implements ConverterInterface
      * @param string $outputFile
      * @return string|null
      */
-    protected function createOutput(string $inputFile, string $outputFile = null)
+    protected function createOutput(/*string*/ $inputFile, /*string*/ $outputFile = null)
     {
         if ($outputFile) {
             if (file_exists($outputFile)) {

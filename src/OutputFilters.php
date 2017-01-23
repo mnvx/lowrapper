@@ -15,7 +15,7 @@ class OutputFilters
      * @param string $outputFormat
      * @return array
      */
-    public static function getDefault(string $outputFormat)
+    public static function getDefault(/*string*/ $outputFormat)
     {
         switch ($outputFormat) {
             case Format::TEXT_TEXT:

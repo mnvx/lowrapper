@@ -56,9 +56,9 @@ class LowrapperParameters
     protected $outputFilters = [];
 
     public function __construct(
-        string $outputFormat = null,
-        string $outputFile = null,
-        string $inputFile = null
+        /*string*/ $outputFormat = null,
+        /*string*/ $outputFile = null,
+        /*string*/ $inputFile = null
     ) {
         $this->setOutputFormat($outputFormat);
         $this->setOutputFile($outputFile);
@@ -149,7 +149,7 @@ class LowrapperParameters
      * @param string $outputFilter
      * @return LowrapperParameters
      */
-    public function addOutputFilter(string $outputFilter)
+    public function addOutputFilter(/*string*/ $outputFilter)
     {
         $this->outputFilters[] = $outputFilter;
         return $this;
@@ -158,7 +158,7 @@ class LowrapperParameters
     /**
      * @return string[]
      */
-    public function getOutputFilters(): array
+    public function getOutputFilters()//: array
     {
         return $this->outputFilters;
     }
