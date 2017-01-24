@@ -9,7 +9,7 @@ For example: html -> docx, html -> pdf, docx -> html and many more.
 
 ## Usage
 
-```
+```php
 use Mnvx\Lowrapper\Converter;
 use Mnvx\Lowrapper\LowrapperParameters;
 use Mnvx\Lowrapper\Format;
@@ -39,7 +39,7 @@ More [examples](/examples)
 
 ## Installation
 
-```
+```bash
 sudo apt-get install libreoffice-core --no-install-recommends
 composer require mnvx/lowrapper
 ```
