@@ -126,7 +126,7 @@ class Converter implements ConverterInterface
             }
         });
 
-        $result = $this->createOutput($inputFile . '.' . $parameters->getOutputFormat(), $parameters->getOutputFile());
+        $result = $this->createOutput($inputFile, $parameters->getOutputFile());
         $this->deleteInput($parameters, $inputFile);
 
         if ($resultCode != 0) {
