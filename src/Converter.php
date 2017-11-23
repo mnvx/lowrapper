@@ -173,9 +173,14 @@ class Converter implements ConverterInterface
      * @param string $inputFile
      * @param string $outputFile
      * @return string|null
+     * @throws LowrapperException
      */
     protected function createOutput(/*string*/ $inputFile, /*string*/ $outputFile = null)
     {
+        if (!file_exists($inputFile)) {
+            $this->logger->error('LibreOffice did not convert, check its working capacity');
+            throw new LowrapperException('LibreOffice did not convert, check its working capacity');
+        }
         if ($outputFile) {
             if (file_exists($outputFile)) {
                 unlink($outputFile);

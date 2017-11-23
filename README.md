@@ -40,7 +40,13 @@ More [examples](/examples)
 ## Installation
 
 ```bash
+sudo add-apt-repository ppa:libreoffice/ppa
+sudo apt-get update
+sudo apt-get install default-jdk -y
+sudo apt-get install python-software-properties  -y
+sudo apt-get install software-properties-common -y
 sudo apt-get install libreoffice-core --no-install-recommends
+sudo apt-get install libreoffice-writer
 composer require mnvx/lowrapper
 ```
 
