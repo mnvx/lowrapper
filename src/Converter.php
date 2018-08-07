@@ -141,6 +141,17 @@ class Converter implements ConverterInterface
     }
 
     /**
+     * @param $option
+     * @return $this
+     */
+    public function addOption($option)
+    {
+        $this->defaultOptions[] = $option;
+
+        return $this;
+    }
+
+    /**
      * @param $command
      * @return Process
      */
