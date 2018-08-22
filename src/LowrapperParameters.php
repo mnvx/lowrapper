@@ -12,8 +12,6 @@ class LowrapperParameters
 
     /**
      * Output format.
-     *
-     * @var string
      */
     protected $outputFormat = null;
 
@@ -141,7 +139,7 @@ class LowrapperParameters
     }
 
     /**
-     * @param string $outputFilter
+     * @param $outputFilter
      * @return LowrapperParameters
      */
     public function addOutputFilter(/*string*/ $outputFilter)
