@@ -14,7 +14,7 @@ class LowrapperParameters
     /**
      * Output format.
      *
-     * @var null
+     * @var null|string
      */
     protected $outputFormat = null;
 
@@ -31,7 +31,7 @@ class LowrapperParameters
      * --global       create new global document.
      * --web          create new HTML document.
      *
-     * @var null
+     * @var null|string
      */
     protected $documentType = null;
 
@@ -55,6 +55,13 @@ class LowrapperParameters
      */
     protected $outputFilters = [];
 
+    /**
+     * LowrapperParameters constructor.
+     * @param null|string $outputFormat
+     * @param null|string $outputFile
+     * @param null|string $inputFile
+     * @throws LowrapperException
+     */
     public function __construct(
         /*string*/ $outputFormat = null,
         /*string*/ $outputFile = null,
@@ -102,7 +109,7 @@ class LowrapperParameters
     }
 
     /**
-     * @return null
+     * @return null|string
      */
     public function getOutputFormat()
     {
@@ -110,7 +117,7 @@ class LowrapperParameters
     }
 
     /**
-     * @param null $outputFormat
+     * @param null|string $outputFormat
      * @return LowrapperParameters
      * @throws LowrapperException
      */
@@ -124,7 +131,7 @@ class LowrapperParameters
     }
 
     /**
-     * @return null
+     * @return null|string
      */
     public function getDocumentType()
     {
@@ -132,7 +139,7 @@ class LowrapperParameters
     }
 
     /**
-     * @param null $documentType
+     * @param null|string $documentType
      * @return LowrapperParameters
      * @throws LowrapperException
      */
