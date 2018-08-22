@@ -7,14 +7,13 @@ class LowrapperParameters
 
     /**
      * Full path to output file. In case when output is stdout - null.
-     * @var null|string
      */
     protected $outputFile = null;
 
     /**
      * Output format.
      *
-     * @var null|string
+     * @var string
      */
     protected $outputFormat = null;
 
@@ -31,13 +30,11 @@ class LowrapperParameters
      * --global       create new global document.
      * --web          create new HTML document.
      *
-     * @var null|string
      */
     protected $documentType = null;
 
     /**
      * Full path to input file. In case when input is stdin - null.
-     * @var null|string
      */
     protected $inputFile = null;
 
@@ -57,9 +54,9 @@ class LowrapperParameters
 
     /**
      * LowrapperParameters constructor.
-     * @param null|string $outputFormat
-     * @param null|string $outputFile
-     * @param null|string $inputFile
+     * @param $outputFormat
+     * @param $outputFile
+     * @param $inputFile
      * @throws LowrapperException
      */
     public function __construct(
@@ -72,16 +69,14 @@ class LowrapperParameters
         $this->setInputFile($inputFile);
     }
 
-    /**
-     * @return null|string
-     */
+
     public function getInputFile()
     {
         return $this->inputFile;
     }
 
     /**
-     * @param null|string $inputFile
+     * @param $inputFile
      * @return LowrapperParameters
      */
     public function setInputFile($inputFile)
@@ -90,16 +85,14 @@ class LowrapperParameters
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
+
     public function getOutputFile()
     {
         return $this->outputFile;
     }
 
     /**
-     * @param null|string $outputFile
+     * @param  $outputFile
      * @return LowrapperParameters
      */
     public function setOutputFile($outputFile)
@@ -108,16 +101,14 @@ class LowrapperParameters
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
+
     public function getOutputFormat()
     {
         return $this->outputFormat;
     }
 
     /**
-     * @param null|string $outputFormat
+     * @param $outputFormat
      * @return LowrapperParameters
      * @throws LowrapperException
      */
@@ -130,16 +121,13 @@ class LowrapperParameters
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
     public function getDocumentType()
     {
         return $this->documentType;
     }
 
     /**
-     * @param null|string $documentType
+     * @param $documentType
      * @return LowrapperParameters
      * @throws LowrapperException
      */
