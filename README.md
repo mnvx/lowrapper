@@ -50,6 +50,12 @@ sudo apt-get install libreoffice-writer
 composer require mnvx/lowrapper
 ```
 
+## Run tests
+
+```bash
+./vendor/bin/phpunit
+```
+
 ## License
 
 Released under the MIT license

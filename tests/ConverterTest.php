@@ -4,9 +4,10 @@ use Mnvx\Lowrapper\Converter;
 use Mnvx\Lowrapper\DocumentType;
 use Mnvx\Lowrapper\Format;
 use Mnvx\Lowrapper\LowrapperParameters;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
 
-class ConverterTest extends \PHPUnit_Framework_TestCase
+class ConverterTest extends TestCase
 {
     /**
      * @dataProvider converterProvider
