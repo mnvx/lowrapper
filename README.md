@@ -50,6 +50,23 @@ sudo apt-get install libreoffice-writer
 composer require mnvx/lowrapper
 ```
 
+Example of installation libreoffice into docker container:
+
+```dockerfile
+FROM php:7.2-fpm
+
+WORKDIR /var/www/html
+
+# Install libreoffice headless
+RUN apt update -y \
+    && mkdir -p /usr/share/man/man1 \
+    && apt -y install default-jdk-headless libreoffice-core libreoffice-writer libreoffice-calc
+RUN mkdir -p /var/www/.cache/dconf \
+    && mkdir -p /var/www/.config/libreoffice \
+    && chmod -R ugo+rwx /var/www/.cache \
+    && chmod -R ugo+rwx /var/www/.config
+```
+
 ## Run tests
 
 ```bash
