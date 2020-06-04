@@ -38,6 +38,12 @@ class Converter implements ConverterInterface
     protected $tempPrefix;
 
     /**
+     * The environment variables or null to use the same environment as the current PHP process
+     * @var array|null
+     */
+    protected $env;
+
+    /**
      * Defailt options for libreoffice
      * @var array
      */
@@ -53,18 +59,21 @@ class Converter implements ConverterInterface
 
     /**
      * Converter constructor.
+     *
      * @param string $binaryPath
      * @param string $tempDir
      * @param int $timeout
      * @param LoggerInterface|null $logger
      * @param string $tempPrefix
+     * @param array $env
      */
     public function __construct(
         /*string*/ $binaryPath = self::BINARY_DEFAULT,
         /*string*/ $tempDir = null,
         /*int*/ $timeout = null,
         LoggerInterface $logger = null,
-        /*string*/ $tempPrefix = 'lowrapper_'
+        /*string*/ $tempPrefix = 'lowrapper_',
+        /*array*/ $env = null
     ) {
         if (!$logger) {
             $logger = new NullLogger();
@@ -79,6 +88,7 @@ class Converter implements ConverterInterface
 
         $this->timeout = $timeout;
         $this->tempPrefix = $tempPrefix;
+        $this->env = $env;
     }
 
     /**
@@ -157,7 +167,7 @@ class Converter implements ConverterInterface
      */
     protected function createProcess(/*string*/ $command)//: Process
     {
-        return new Process($command, $this->tempDir);
+        return new Process($command, $this->tempDir, $this->env);
     }
 
     /**
