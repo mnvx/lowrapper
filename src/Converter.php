@@ -167,7 +167,7 @@ class Converter implements ConverterInterface
      */
     protected function createProcess(/*string*/ $command)//: Process
     {
-        return new Process($command, $this->tempDir, $this->env);
+        return Process::fromShellCommandline($command, $this->tempDir, $this->env);
     }
 
     /**
