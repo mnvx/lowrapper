@@ -41,6 +41,7 @@ class Format
     const WEB_ETEXT = 'etext';
     const WEB_HTML10 = 'html10';
     const WEB_HTML = 'html';
+    const WEB_HTML_EMBED = 'html:HTML:EmbedImages';
     const WEB_MEDIAWIKI = 'mediawiki';
     const WEB_PDF = 'pdf';
     const WEB_SDW3 = 'sdw3';
@@ -201,6 +202,7 @@ class Format
         self::WEB_ETEXT,
         self::WEB_HTML10,
         self::WEB_HTML,
+        self::WEB_HTML_EMBED
         self::WEB_MEDIAWIKI,
         self::WEB_PDF,
         self::WEB_SDW3,
