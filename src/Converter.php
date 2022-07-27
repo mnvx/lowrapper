@@ -113,10 +113,11 @@ class Converter implements ConverterInterface
 
         $options = array_merge($this->defaultOptions, [
             $documentType ? '--' . $documentType : '',
+            $parameters->getInputFilter() ? sprintf('--infilter=%s', $parameters->getInputFilter()) : null,
             '--convert-to "' . $parameters->getOutputFormat() . $outputFilters . '"',
             '"' . $inputFile . '"',
         ]);
-        $command = $this->binaryPath . ' ' . implode(' ', $options);
+        $command = $this->binaryPath . ' ' . implode(' ', array_filter($options));
 
         $process = $this->createProcess($command);
 

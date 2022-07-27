@@ -96,6 +96,15 @@ class ConverterTest extends TestCase
                 $command .'--web --convert-to "text:some filter" "some_temp_file"',
                 null,
             ],
+            'Input filter' => [
+                (new LowrapperParameters())
+                    ->setInputFile('test.html')
+                    ->setOutputFormat(Format::TEXT_TEXT)
+                    ->setOutputFile('test.text')
+                    ->setInputFilter('some'),
+                $command .'--web --infilter=some --convert-to "text:Text (encoded):UTF8" "some_temp_file"',
+                null,
+            ],
             'Default text filter' => [
                 (new LowrapperParameters())
                     ->setInputFile('test.html')

@@ -55,6 +55,14 @@ class LowrapperParameters
      */
     protected $outputFilters = [];
 
+    /**
+     * Input filters, eg.
+     * - Text (encoded)
+     * - UTF8
+     * @var ?string
+     */
+    protected $inputFilter = null;
+
     public function __construct(
         /*string*/ $outputFormat = null,
         /*string*/ $outputFile = null,
@@ -161,6 +169,24 @@ class LowrapperParameters
     public function getOutputFilters()//: array
     {
         return $this->outputFilters;
+    }
+
+    /**
+     * @param string $outputFilter
+     * @return LowrapperParameters
+     */
+    public function setInputFilter(/*string*/ $inputFilter)
+    {
+        $this->inputFilter = $inputFilter;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getInputFilter()//: ?string
+    {
+        return $this->inputFilter;
     }
 
     /**
