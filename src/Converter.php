@@ -71,7 +71,7 @@ class Converter implements ConverterInterface
         /*string*/ $binaryPath = self::BINARY_DEFAULT,
         /*string*/ $tempDir = null,
         /*int*/ $timeout = null,
-        LoggerInterface $logger = null,
+        ?LoggerInterface $logger = null,
         /*string*/ $tempPrefix = 'lowrapper_',
         /*array*/ $env = null
     ) {

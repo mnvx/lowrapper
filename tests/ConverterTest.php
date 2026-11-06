@@ -130,6 +130,12 @@ class ConverterTest extends TestCase
                 str_replace('libreoffice', '/test/path', $command) .'--writer --convert-to "docx" "some_temp_file"',
                 '/test/path',
             ],
+            'No output format' => [
+                (new LowrapperParameters())
+                    ->setInputFile('test.html'),
+                $command .'--convert-to "" "some_temp_file"',
+                null,
+            ],
         ];
     }
 

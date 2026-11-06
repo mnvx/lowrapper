@@ -207,6 +207,9 @@ class DocumentType
      */
     public static function getDefault(/*string*/ $outputFormat)
     {
+        if ($outputFormat === null) {
+            return null;
+        }
         return isset(static::$defaults[$outputFormat]) ? static::$defaults[$outputFormat] : null;
     }
 
